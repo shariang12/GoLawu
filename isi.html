@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoLawu - Aplikasi Ojek Online</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: white;
+            min-height: 100vh;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            padding-bottom: 70px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #fe0000;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 22px;
+            margin-left: 10px;
+            font-weight: 700;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fe0000;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .user-profile {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            padding: 20px;
+        }
+        
+        .gif-container {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 5px;
+            margin-bottom: 15px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .gif-placeholder {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .gif-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Greeting Styles */
+        .greeting-container {
+            background: linear-gradient(135deg, #fe0000, #ff5252);
+            padding: 12px 15px;
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(254, 0, 0, 0.2);
+        }
+        
+        .greeting-text {
+            font-size: 15px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .greeting-text span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 15s linear infinite;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+        
+        .button-section {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .service-button {
+            background-color: #fe0000;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(254, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            aspect-ratio: 1 / 1;
+            padding: 8px;
+            word-wrap: break-word;
+            overflow: hidden;
+        }
+        
+        .service-button:hover {
+            background-color: #e00000;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(254, 0, 0, 0.3);
+        }
+        
+        .promo-banner {
+            background: linear-gradient(to right, #fe0000, #ff5252);
+            border-radius: 12px;
+            padding: 15px;
+            color: white;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .promo-text {
+            flex: 1;
+        }
+        
+        .promo-text h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .promo-text p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .promo-icon {
+            font-size: 40px;
+            margin-left: 15px;
+        }
+        
+        /* Footer Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 480px;
+            background-color: #fe0000;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            font-size: 12px;
+            transition: color 0.3s;
+        }
+        
+        .nav-item.active {
+            color: #ffdd00;
+        }
+        
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 5px;
+            color: white;
+        }
+        
+        .nav-item.active .nav-icon {
+            color: #ffdd00;
+        }
+        
+        /* Animation */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">G</div>
+                <h1>GoLawu</h1>
+            </div>
+            <div class="user-profile">G</div>
+        </header>
+        
+        <div class="main-content">
+            <div class="gif-container">
+                <div class="gif-placeholder">
+                    <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXhqY2V0c2N5c3J5c3V0N2N4bGZ4dWxqY2J6eGJmZ2V2b2V0dGZ6biZlcD12MV9pbnTlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3orieS4jfHJaKwkdy8/giphy.gif" alt="Driver moving animation">
+                </div>
+            </div>
+            
+            <div class="greeting-container">
+                <div class="greeting-text">
+                    <span id="greeting-message"></span>
+                </div>
+            </div>
+            
+            <div class="button-section">
+                <button class="service-button">Order</button>
+                <button class="service-button">Food</button>
+                <button class="service-button">Ambulance</button>
+                <button class="service-button">Akomodasi</button>
+                <button class="service-button">Wisata</button>
+                <button class="service-button">Promo</button>
+                <button class="service-button">Bantuan</button>
+                <button class="service-button">Lainnya</button>
+            </div>
+            
+            <div class="promo-banner">
+                <div class="promo-text">
+                    <h3>Promo Spesial!</h3>
+                    <p>Dapatkan diskon hingga 50% untuk perjalanan pertama</p>
+                </div>
+                <div class="promo-icon">🎁</div>
+            </div>
+        </div>
+        
+        <div class="bottom-nav">
+            <div class="nav-item active">
+                <div class="nav-icon"><i class="fas fa-home"></i></div>
+                <span>MENU</span>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon"><i class="fas fa-credit-card"></i></div>
+                <span>PAYMENT</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk mendapatkan salam berdasarkan waktu
+        function getGreeting() {
+            const hour = new Date().getHours();
+            if (hour >= 5 && hour < 12) {
+                return "Selamat Pagi";
+            } else if (hour >= 12 && hour < 15) {
+                return "Selamat Siang";
+            } else if (hour >= 15 && hour < 19) {
+                return "Selamat Sore";
+            } else {
+                return "Selamat Malam";
+            }
+        }
+
+        // Fungsi untuk menampilkan pesan sapaan
+        function displayGreeting() {
+            const greeting = getGreeting();
+            // Ganti {nama} dan {lokasi_kota} dengan data yang sesuai
+            const message = `${greeting}, {nama} di {lokasi_kota}! Selamat menggunakan layanan GoLawu. Dapatkan promo spesial untuk pengguna baru!`;
+            
+            document.getElementById('greeting-message').textContent = message;
+        }
+
+        // Simple interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            displayGreeting();
+            
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            const serviceButtons = document.querySelectorAll('.service-button');
+            serviceButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
